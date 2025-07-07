@@ -5,14 +5,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <PackageId>PteroSharp.NET</PackageId>
-	  <PackageVersion>1.0.0</PackageVersion>
+	  <PackageVersion>1.0.1</PackageVersion>
 	  <Authors>cbm.dk</Authors>
 	  <Company>cbm.dk</Company>
 	  <Description>.net wrapper for pterodactyl</Description>
 	  <PackageTags>csharp;library;utility</PackageTags>
-	  <RepositoryUrl>https://github.com/cbmdk/pterosharp</RepositoryUrl>
+	  <RepositoryUrl>https://github.com/cbmdk/pterosharp.net</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
-	  <PackageProjectUrl>https://github.com/cbmdk/pterosharp</PackageProjectUrl>
+	  <PackageProjectUrl>https://github.com/cbmdk/pterosharp.net</PackageProjectUrl>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 
