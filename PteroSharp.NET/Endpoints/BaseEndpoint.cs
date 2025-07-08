@@ -69,8 +69,8 @@ namespace PteroSharp.Endpoints
         protected async Task<T> HandleRequest<T>(RestRequest request, CancellationToken token = default)
         {
             var response = await HandleRequestRawAsync<BaseAttributes<T>>(request, token);
-
-            return response.Data.Attributes;
+            var result = response.Data.Attributes;
+            return result;
         }
 
         protected async Task<PterodactylList<T>> HandleArrayRequest<T>(RestRequest request, CancellationToken token = default)

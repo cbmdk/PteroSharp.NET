@@ -1,11 +1,13 @@
-﻿using PteroSharp.Objects.V1_0.Client;
+﻿using PteroSharp.NET.Models;
+using PteroSharp.Objects.V0_7.Admin;
+using PteroSharp.Objects.V1_0.Client;
+using PteroSharp.Utils;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PteroSharp.NET.Models;
 
 namespace PteroSharp.Endpoints.V1_0.Client
 {
@@ -22,12 +24,28 @@ namespace PteroSharp.Endpoints.V1_0.Client
             return response;
         }
 
-        public async Task<NestListResponse> GetNests(CancellationToken token = default)
+        public async Task<NestListResponse> GetNestsAsync(CancellationToken token = default)
         {
-            var request = new RestRequest("/api/application/ntests");
-            var response = await HandleRequest<NestListResponse>(request, token);
-            return response;
+            var request = new RestRequest("/api/application/nests");
+            var response = await HandleRequestRawAsync<NestListResponse>(request, token);
+            
+            
+            return response.Data;
         }
+
+        public async Task<NestListResponse> GetNestAsync(int nestId, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/nests/{nestId}");
+            var response = await HandleRequestRawAsync<NestListResponse>(request, token);
+            return response.Data;
+        }
+
+        //public async Task<PterodactylList<EggListResponse>> GetEggsAsync(int NestId, CancellationToken token = default)
+        //{
+        //    var request = new RestRequest($"/api/application/nests/{NestId}/eggs");
+        //    var response = await HandleArrayRequest<EggListResponse>(request, token);
+        //    return response;
+        //}
 
 
     }

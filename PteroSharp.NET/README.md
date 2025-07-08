@@ -1,1 +1,3 @@
 ﻿pterosharp... a .net wrapper for the Pterodactyl API
+
+sample is coming soon...

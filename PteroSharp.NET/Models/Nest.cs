@@ -9,23 +9,24 @@ namespace PteroSharp.NET.Models
 {
     public class NestListResponse
     {
+
         [JsonPropertyName("object")]
-        public string Object { get; set; } = string.Empty;
+        public string Object { get; set; }
 
         [JsonPropertyName("data")]
-        public List<NestData> Data { get; set; } = new();
+        public List<NestData> Data { get; set; }
 
         [JsonPropertyName("meta")]
-        public Meta Meta { get; set; } = new();
+        public Meta Meta { get; set; }
     }
 
     public class NestData
     {
         [JsonPropertyName("object")]
-        public string Object { get; set; } = string.Empty;
+        public string Object { get; set; }
 
         [JsonPropertyName("attributes")]
-        public NestAttributes Attributes { get; set; } = new();
+        public NestAttributes Attributes { get; set; }
     }
 
     public class NestAttributes
@@ -34,16 +35,16 @@ namespace PteroSharp.NET.Models
         public int Id { get; set; }
 
         [JsonPropertyName("uuid")]
-        public string Uuid { get; set; } = string.Empty;
+        public string Uuid { get; set; }
 
         [JsonPropertyName("author")]
-        public string Author { get; set; } = string.Empty;
+        public string Author { get; set; }
 
         [JsonPropertyName("name")]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
         [JsonPropertyName("description")]
-        public string Description { get; set; } = string.Empty;
+        public string Description { get; set; }
 
         [JsonPropertyName("created_at")]
         public DateTime CreatedAt { get; set; }
@@ -55,7 +56,7 @@ namespace PteroSharp.NET.Models
     public class Meta
     {
         [JsonPropertyName("pagination")]
-        public Pagination Pagination { get; set; } = new();
+        public Pagination Pagination { get; set; }
     }
 
     public class Pagination
@@ -76,6 +77,6 @@ namespace PteroSharp.NET.Models
         public int TotalPages { get; set; }
 
         [JsonPropertyName("links")]
-        public Dictionary<string, object> Links { get; set; } = new();
+        public Dictionary<string, string> Links { get; set; }
     }
 }
