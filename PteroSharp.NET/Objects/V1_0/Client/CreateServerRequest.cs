@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace PteroSharp.NET.Objects.V1_0.Client
 
         [Required]
         [JsonPropertyName("environment")]
-        public Dictionary<string, string> Environment { get; set; } = new();
+        public Environment Environment { get; set; } = new();
 
         [Required]
         [JsonPropertyName("limits")]
@@ -61,6 +62,10 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public bool OomDisabled { get; set; } = false;
     }
 
+    public class Environment{
+        public string server_jarfile { get; set; }
+        public string build_number { get; set; }
+    }
     public class ServerLimits
     {
         [Required]
