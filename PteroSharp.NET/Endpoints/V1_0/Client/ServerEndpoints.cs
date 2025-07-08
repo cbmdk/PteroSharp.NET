@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PteroSharp.NET.Objects.V1_0.Client;
 using PteroSharp.Objects.V1_0.Client;
 using PteroSharp.Utils;
 using RestSharp;
@@ -35,7 +36,7 @@ namespace PteroSharp.Endpoints.V1_0.Client
             return new PterodactylList<Server>(filtered);
         }
 
-        public async Task<Server> CreateServerAsync(Server server, CancellationToken token = default)
+        public async Task<CreateServerRequest> CreateServerAsync(CreateServerRequest server, CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/servers", Method.Post)
                 .AddJsonBody(server);
