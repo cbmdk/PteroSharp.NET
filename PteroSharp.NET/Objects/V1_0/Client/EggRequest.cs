@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace PteroSharp.NET.Objects.V1_0.Client
 {
+    // Fixed: Data should be a List<EggData>, not a single EggData
     public class EggListResponse
     {
         [JsonPropertyName("object")]
         public string Object { get; set; }
 
         [JsonPropertyName("data")]
-        public EggData Data { get; set; }
+        public List<EggData> Data { get; set; }  // Changed from EggData to List<EggData>
     }
 
     public class EggData
@@ -46,7 +47,7 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public string Description { get; set; }
 
         [JsonPropertyName("docker_image")]
-        public string DockerImage { get; set; }
+        public string docker_image { get; set; }
 
         [JsonPropertyName("config")]
         public EggConfig Config { get; set; }
@@ -58,12 +59,12 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public EggScript Script { get; set; }
 
         [JsonPropertyName("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime created_at { get; set; }
 
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; set; }
 
-        [JsonPropertyName("relationships")]
+        [JsonPropertyName("updated_at")]
         public EggRelationships Relationships { get; set; }
     }
 
@@ -79,7 +80,7 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public string Stop { get; set; }
 
         [JsonPropertyName("logs")]
-        public LogsConfig Logs { get; set; }
+        public object Logs { get; set; }  // Changed to object to handle both array and object cases
 
         [JsonPropertyName("extends")]
         public object Extends { get; set; }
@@ -106,7 +107,7 @@ namespace PteroSharp.NET.Objects.V1_0.Client
     public class LogsConfig
     {
         [JsonPropertyName("custom")]
-        public bool Custom { get; set; }
+        public bool? Custom { get; set; }
 
         [JsonPropertyName("location")]
         public string Location { get; set; }
@@ -136,7 +137,17 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public NestWrapper Nest { get; set; }
 
         [JsonPropertyName("servers")]
-        public List<ServerWrapper> Servers { get; set; }
+        public ServerListWrapper Servers { get; set; }  // Fixed: Should be ServerListWrapper
+    }
+
+    // Fixed: Added proper wrapper for servers list
+    public class ServerListWrapper
+    {
+        [JsonPropertyName("object")]
+        public string Object { get; set; }
+
+        [JsonPropertyName("data")]
+        public List<ServerWrapper> Data { get; set; }
     }
 
     public class NestWrapper
@@ -166,10 +177,10 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public string Description { get; set; }
 
         [JsonPropertyName("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime created_at { get; set; }
 
         [JsonPropertyName("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime updated_at { get; set; }
     }
 
     public class ServerWrapper
@@ -187,7 +198,7 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public int Id { get; set; }
 
         [JsonPropertyName("external_id")]
-        public string ExternalId { get; set; }
+        public string external_id { get; set; }
 
         [JsonPropertyName("uuid")]
         public string Uuid { get; set; }
@@ -232,10 +243,10 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public ServerContainer Container { get; set; }
 
         [JsonPropertyName("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime updated_at { get; set; }
 
         [JsonPropertyName("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime created_at { get; set; }
     }
 
     public class EggServerLimits
@@ -274,7 +285,7 @@ namespace PteroSharp.NET.Objects.V1_0.Client
     public class ServerContainer
     {
         [JsonPropertyName("startup_command")]
-        public string StartupCommand { get; set; }
+        public string startup_command { get; set; }
 
         [JsonPropertyName("image")]
         public string Image { get; set; }
@@ -286,3 +297,7 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public Dictionary<string, string> Environment { get; set; }
     }
 }
+
+// Usage example:
+// var response = JsonSerializer.Deserialize<EggListResponse>(jsonString);
+// var eggs = response.Data.Select(x => x.Attributes).ToList();
