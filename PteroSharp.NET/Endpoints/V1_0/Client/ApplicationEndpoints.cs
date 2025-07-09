@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PteroSharp.NET.Objects.V1_0.Client;
 
 namespace PteroSharp.Endpoints.V1_0.Client
 {
@@ -33,12 +34,24 @@ namespace PteroSharp.Endpoints.V1_0.Client
             return response.Data;
         }
 
-        public async Task<NestListResponse> GetNestAsync(int nestId, CancellationToken token = default)
+        public async Task<NestData> GetNestAsync(int nestId, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/nests/{nestId}");
-            var response = await HandleRequestRawAsync<NestListResponse>(request, token);
+            var response = await HandleRequestRawAsync<NestData>(request, token);
             return response.Data;
         }
+
+        public async Task<EggListResponse> GetEggsAsync(int nestId, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/nests/{nestId}/eggs?include=nest,servers");
+            var response = await HandleRequestRawAsync<EggListResponse>(request, token);
+            return response.Data;
+        }
+
+        //public async Task<EggData> GetEggAsync(int nestId, CancellationToken token = default)
+        //{
+
+        //}
 
         //public async Task<PterodactylList<EggListResponse>> GetEggsAsync(int NestId, CancellationToken token = default)
         //{
