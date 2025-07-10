@@ -36,6 +36,11 @@ namespace PteroSharp.Endpoints.V1_0.Client
             return new PterodactylList<Server>(filtered);
         }
 
+        public async Task GetServerVariables(string serverId, CancellationToken token = default)
+        {
+
+        }
+
         public async Task<CreateServerRequest> CreateServerAsync(CreateServerRequest server, CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/servers", Method.Post)
