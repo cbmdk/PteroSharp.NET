@@ -1,5 +1,4 @@
 ﻿using PteroSharp.NET.Models;
-using PteroSharp.Objects.V0_7.Admin;
 using PteroSharp.Objects.V1_0.Client;
 using PteroSharp.Utils;
 using RestSharp;

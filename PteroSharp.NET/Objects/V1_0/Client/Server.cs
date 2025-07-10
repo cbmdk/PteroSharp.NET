@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PteroSharp.Objects.V0_7.Admin;
 using System.Text.Json.Serialization;
 
 namespace PteroSharp.Objects.V1_0.Client

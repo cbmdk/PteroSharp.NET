@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using RestSharp.Serializers.NewtonsoftJson;
 using PteroSharp.Endpoints.V1_0;
-using PteroSharp.Endpoints.V0_7;
+
 using PteroSharp.Exceptions;
 
 namespace PteroSharp
@@ -14,7 +14,7 @@ namespace PteroSharp
 
         public static Pterodactyl Instance;
 
-        public PterodactylV0_7 V0_7;
+
         public PterodactylV1_0 V1_0;
 
         public Pterodactyl(string hostname, string key)
@@ -40,7 +40,6 @@ namespace PteroSharp
                 { "Accept", "Application/vnd.pterodactyl.v1+json" }
             });
 
-            V0_7 = new PterodactylV0_7(HttpClient);
             V1_0 = new PterodactylV1_0(HttpClient);
             Instance = this;
         }
