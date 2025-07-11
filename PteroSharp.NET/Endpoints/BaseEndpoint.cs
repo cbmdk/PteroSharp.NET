@@ -38,6 +38,11 @@ namespace PteroSharp.Endpoints
             return 0;
         }
 
+        protected async Task HandleRequestJsonRawAsync(string json, CancellationToken token = default) 
+        {
+        
+        }
+
         protected async Task<RestResponse<T>> HandleRequestRawAsync<T>(RestRequest request, CancellationToken token = default)
         {
             var response = await _client.ExecuteAsync<T>(request, token)

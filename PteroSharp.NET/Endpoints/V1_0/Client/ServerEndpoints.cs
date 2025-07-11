@@ -1,12 +1,13 @@
 ﻿
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 using PteroSharp.NET.Objects.V1_0.Client;
 using PteroSharp.Objects.V1_0.Client;
 using PteroSharp.Utils;
 using RestSharp;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PteroSharp.Endpoints.V1_0.Client
 {
@@ -50,6 +51,13 @@ namespace PteroSharp.Endpoints.V1_0.Client
             return server;
         }
 
+        public async Task<object> SendJsonAsync(string jsonString, CancellationToken token = default)
+        {
+            var request = new RestRequest("/api/application/servers", Method.Post)
+                .AddStringBody(jsonString, DataFormat.Json);
+            var response = await HandleRequestRawAsync<object>(request, token);
+            return JsonConvert.DeserializeObject(response.Content);
+        }
 
 
 
