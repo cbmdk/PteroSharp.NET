@@ -42,7 +42,7 @@ namespace PteroSharp.Endpoints.V1_0.Client
 
         public async Task<EggListResponse> GetEggsAsync(int nestId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nests/{nestId}/eggs?include=nest,servers");
+            var request = new RestRequest($"/api/application/nests/{nestId}/eggs?include=nest,servers,variables,config");
             var response = await HandleRequestRawAsync<EggListResponse>(request, token);
             return response.Data;
         }
