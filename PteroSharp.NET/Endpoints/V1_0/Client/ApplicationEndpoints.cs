@@ -47,10 +47,25 @@ namespace PteroSharp.Endpoints.V1_0.Client
             return response.Data;
         }
 
-        public async Task<EggData> GetEggAsync(int nestId, int eggId, CancellationToken token = default)
+        //public async Task<EggListResponse> GetEggWithId(int nestId, int eggId, CancellationToken token = default)
+        //{
+        //    var eggs = await GetEggAsync(nestId, eggId, token);
+        //    var egg = eggs.Data.FirstOrDefault(egg => egg.Attributes.Id == id);
+        //    return 
+        //}
+
+        public async Task<EggData> GetEggWithIdAsync(int nestId, int eggId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nests/{nestId}/eggs/{eggId}");
+            var request = new RestRequest($"/api/application/nests/{nestId}/eggs/{eggId}?include=nest,servers,variables,config");
             var response = await HandleRequestRawAsync<EggData>(request, token);
+            return response.Data;
+        }
+
+        public async Task<ServerVariablesResponse> GetServerVariablesAsync(string serverId,
+            CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/client/servers/{serverId}/startup");
+            var response = await HandleRequestRawAsync<ServerVariablesResponse>(request, token);
             return response.Data;
         }
 
