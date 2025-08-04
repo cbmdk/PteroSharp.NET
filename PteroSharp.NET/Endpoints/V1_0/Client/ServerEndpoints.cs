@@ -44,8 +44,40 @@ namespace PteroSharp.Endpoints.V1_0.Client
 
         public async Task<CreateServerRequest> CreateServerAsync(CreateServerRequest server, CancellationToken token = default)
         {
+            var serverData = new
+            {
+                name = "My New Server22222222222",
+                user = 1,
+                egg = 2,
+                docker_image = "ghcr.io/pterodactyl/yolks:java_21",
+                startup = "java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar {{SERVER_JARFILE}}",
+                environment = new
+                {
+                    VANILLA_VERSION = "latest",
+                    SERVER_JARFILE = "server.jar"
+                },
+                limits = new
+                {
+                    memory = 3072,
+                    swap = 0,
+                    disk = 10000,
+                    io = 500,
+                    cpu = 100,
+                    oom_disabled = false
+                },
+                feature_limits = new
+                {
+                    databases = 2,
+                    allocations = 1,
+                    backups = 5
+                },
+                allocation = new
+                {
+                    @default = 0
+                }
+            };
             var request = new RestRequest("/api/application/servers", Method.Post)
-                .AddJsonBody(server);
+                .AddStringBody(JsonConvert.SerializeObject(serverData), DataFormat.Json);
             var rseponse = await HandleRequest<BaseAttributes<Server>>(request, token);
 
             return server;

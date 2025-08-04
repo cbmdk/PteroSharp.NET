@@ -249,7 +249,7 @@ namespace PteroSharp.NET.Objects.V1_0.Client
 
         [JsonPropertyName("description")] public string Description { get; set; }
 
-        [JsonPropertyName("env_variable")] public string EnvVariable { get; set; }
+        [JsonPropertyName("env_variable")] public string Env_Variable { get; set; }
 
         [JsonPropertyName("default_value")] public string DefaultValue { get; set; }
 
