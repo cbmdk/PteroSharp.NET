@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <PackageId>PteroSharp.NET</PackageId>
-	  <PackageVersion>1.0.13</PackageVersion>
+	  <PackageVersion>1.0.14</PackageVersion>
 	  <Authors>cbm.dk</Authors>
 	  <Company>cbm.dk</Company>
 	  <Description>.net wrapper for pterodactyl</Description>
