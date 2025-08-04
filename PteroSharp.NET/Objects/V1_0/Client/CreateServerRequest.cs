@@ -39,7 +39,8 @@ namespace PteroSharp.NET.Objects.V1_0.Client
         public AllocationConfig Allocation { get; set; }
 
         [JsonPropertyName("environment")]
-        public Dictionary<string, string> Environment { get; set; }
+        //public Dictionary<string, string> Environment { get; set; }
+        public object Environment { get; set; }
     }
 
     public class ServerResourceLimits
@@ -58,6 +59,9 @@ namespace PteroSharp.NET.Objects.V1_0.Client
 
         [JsonPropertyName("cpu")]
         public int Cpu { get; set; }
+        [JsonPropertyName("oom_disabled")]
+        public bool Oom_Disabled { get; set; } = false;
+
     }
 
     public class ServerFeatureLimits

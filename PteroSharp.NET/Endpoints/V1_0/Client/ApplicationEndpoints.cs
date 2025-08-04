@@ -76,15 +76,16 @@ namespace PteroSharp.Endpoints.V1_0.Client
             return eggs.Data.FirstOrDefault(egg => egg.Attributes.Id == eggId) ?? throw new Exception($"Egg with ID {eggId} not found in Nest {nestId}.");
         }
 
-        public async Task<PterodactylList<AllocationAttributes>> GetFreeAllocationIDsAsync(int nodeId, CancellationToken token = default)
+        public async Task<BaseAttributes<AllocationAttributes>> GetFreeAllocationIDAsync(int nodeId, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
             var response = await HandleArrayRequest<BaseAttributes<AllocationAttributes>>(request, token);
             // Assuming you want to do something with the response
             // For now, just returning it
-            var list = response.Select(rsp => rsp.Attributes);
+            var list = response.FirstOrDefault((x) => x.Attributes.Assigned == false);
 
-            return new PterodactylList<AllocationAttributes>(list);
+
+            return list;
         }
 
         //public async Task<PterodactylList<EggListResponse>> GetEggsAsync(int NestId, CancellationToken token = default)

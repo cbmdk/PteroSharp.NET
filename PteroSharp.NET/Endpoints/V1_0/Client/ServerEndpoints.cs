@@ -51,6 +51,15 @@ namespace PteroSharp.Endpoints.V1_0.Client
 
         }
 
+        public async Task<bool> CreateMineCraftServer(CreateServerRequest serverRequest, CancellationToken token = default)
+        {
+            var request = new RestRequest("/api/application/servers", Method.Post)
+                .AddJsonBody(serverRequest);
+            //.AddStringBody(JsonConvert.SerializeObject(serverRequest), DataFormat.Json);
+            var rseponse = await HandleRequest<BaseAttributes<Server>>(request, token);
+            return true;
+        }
+
 
 
         public async Task<CreateServerRequest> CreateServerAsync(CreateServerRequest server, CancellationToken token = default)
