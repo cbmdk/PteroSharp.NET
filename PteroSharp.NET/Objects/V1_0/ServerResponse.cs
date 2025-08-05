@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PteroSharp.NET.Objects.V1_0
 {
+    using PteroSharp.NET.Models;
     using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -150,26 +151,26 @@ public class AllocationResponse
     public AllocationAttributes Attributes { get; set; }
 }
 
-public class AllocationAttributes
-{
-    [JsonPropertyName("id")]
-    public int Id { get; set; }
+//public class AllocationAttributes
+//{
+//    [JsonPropertyName("id")]
+//    public int Id { get; set; }
 
-    [JsonPropertyName("ip")]
-    public string Ip { get; set; }
+//    [JsonPropertyName("ip")]
+//    public string Ip { get; set; }
 
-    [JsonPropertyName("ip_alias")]
-    public string Ip_Alias { get; set; }
+//    [JsonPropertyName("ip_alias")]
+//    public string Ip_Alias { get; set; }
 
-    [JsonPropertyName("port")]
-    public int Port { get; set; }
+//    [JsonPropertyName("port")]
+//    public int Port { get; set; }
 
-    [JsonPropertyName("notes")]
-    public string Notes { get; set; }
+//    [JsonPropertyName("notes")]
+//    public string Notes { get; set; }
 
-    [JsonPropertyName("is_default")]
-    public bool Is_Default { get; set; }
-}
+//    [JsonPropertyName("is_default")]
+//    public bool Is_Default { get; set; }
+//}
 
 public class VariableResponse
 {

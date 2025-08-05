@@ -1,5 +1,8 @@
 ﻿
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using PteroSharp.NET.Models;
+using PteroSharp.NET.Objects.V1_0;
 using PteroSharp.NET.Objects.V1_0.Client;
 using PteroSharp.Objects.V1_0.Client;
 using PteroSharp.Utils;
@@ -8,7 +11,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using PteroSharp.NET.Objects.V1_0;
 
 namespace PteroSharp.Endpoints.V1_0.Client
 {
@@ -53,14 +55,50 @@ namespace PteroSharp.Endpoints.V1_0.Client
 
         public async Task<bool> CreateMineCraftServer(CreateServerRequest serverRequest, CancellationToken token = default)
         {
-            var request = new RestRequest("/api/application/servers", Method.Post)
-                .AddJsonBody(serverRequest);
-            //.AddStringBody(JsonConvert.SerializeObject(serverRequest), DataFormat.Json);
-            var rseponse = await HandleRequest<BaseAttributes<Server>>(request, token);
+            var allocation = await GetFreeAllocationIDAsync(4);
+
+            serverRequest.Allocation = new AllocationConfig
+            {
+                Default = allocation.Attributes.Id,
+            };
+            var request = new RestRequest("/api/application/servers", Method.Post);
+
+            // Configure JSON serialization to use snake_case
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new SnakeCaseNamingStrategy()
+                }
+            };
+
+            var json = JsonConvert.SerializeObject(serverRequest, settings);
+            request.AddStringBody(json, DataFormat.Json);
+
+            var response = await HandleRequest<BaseAttributes<Server>>(request, token);
             return true;
         }
 
+        public async Task<BaseAttributes<AllocationAttributes>> GetFreeAllocationIDAsync(int nodeId, CancellationToken token = default)
+        {
+            try
+            {
+                var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
+                var response = await HandleArrayRequest<BaseAttributes<AllocationAttributes>>(request, token);
+                // Assuming you want to do something with the response
+                // For now, just returning it
+                var list = response.FirstOrDefault((x) => x.Attributes.Assigned == false);
 
+
+                return list;
+
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
 
         public async Task<CreateServerRequest> CreateServerAsync(CreateServerRequest server, CancellationToken token = default)
         {

@@ -40,7 +40,9 @@ namespace PteroSharp.NET.Objects.V1_0.Client
 
         [JsonPropertyName("environment")]
         //public Dictionary<string, string> Environment { get; set; }
-        public object Environment { get; set; }
+        //public object Environment { get; set; }
+        public Dictionary<string, string> environment { get; set; } // or Dictionary<string, object>
+
     }
 
     public class ServerResourceLimits
