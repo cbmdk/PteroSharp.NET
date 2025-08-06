@@ -18,6 +18,5 @@ namespace PteroSharp.Endpoints.V1_0
             Account = new AccountEndpoints(client);
             Application = new ApplicationEndpoints(client);
         }
-
     }
 }

@@ -7,18 +7,15 @@ using PteroSharp.Exceptions;
 
 namespace PteroSharp
 {
-    public class Pterodactyl
+    public class PterodactylClient
     {
-
         internal RestClient HttpClient { get; set; }
 
-        public static Pterodactyl Instance;
+        public static PterodactylClient Instance;
         
-
-
         public PterodactylV1_0 V1_0;
 
-        public Pterodactyl(string hostname, string key)
+        public PterodactylClient(string hostname, string key)
         {
             if (key == null)
             {
@@ -44,20 +41,16 @@ namespace PteroSharp
             V1_0 = new PterodactylV1_0(HttpClient);
             Instance = this;
         }
-
     }
 
-    public class PterodactylAccount
+    public class PterodactylApplication
     {
-
         internal RestClient HttpClient { get; set; }
-
-        public static PterodactylAccount Instance;
-
+        public static PterodactylApplication Instance;
 
         public PterodactylV1_0 V1_0;
 
-        public PterodactylAccount(string hostname, string key)
+        public PterodactylApplication(string hostname, string key)
         {
             GeneralPtero(hostname, key);
             Instance = this;

@@ -16,7 +16,7 @@ namespace PteroSharp.Objects.V1_0.Client
 
         public Account()
         {
-            _client = Pterodactyl.Instance.HttpClient;
+            _client = PterodactylClient.Instance.HttpClient;
         }
 
 
