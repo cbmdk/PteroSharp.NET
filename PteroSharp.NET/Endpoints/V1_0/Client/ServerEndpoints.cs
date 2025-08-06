@@ -53,7 +53,7 @@ namespace PteroSharp.Endpoints.V1_0.Client
 
         }
 
-        public async Task<bool> CreateMineCraftServer(CreateServerRequest serverRequest, CancellationToken token = default)
+        public async Task<BaseAttributes<CreateServerAttributes>> CreateMineCraftServer(CreateServerRequest serverRequest, CancellationToken token = default)
         {
             var allocation = await GetFreeAllocationIDAsync(4);
 
@@ -75,8 +75,28 @@ namespace PteroSharp.Endpoints.V1_0.Client
             var json = JsonConvert.SerializeObject(serverRequest, settings);
             request.AddStringBody(json, DataFormat.Json);
 
-            var response = await HandleRequest<BaseAttributes<Server>>(request, token);
-            return true;
+            var response = await HandleRequestRawAsync<BaseAttributes<CreateServerAttributes>>(request, token);
+            return response.Data;
+        }
+
+        public async Task<bool> CreateEulaFileOnServer(string serverId, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/client/servers/{serverId}/files/write?file=%2Feula.txt", Method.Post);
+            request.AddHeader("Content-Type", "text/plain");
+
+            // Add the EULA content
+            request.AddStringBody("eula=true", ContentType.Plain);
+
+            try
+            {
+                var response = await HandleRequestRawAsync<BaseAttributes<CreateServerAttributes>>(request, token);
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+            return false;
         }
 
         public async Task<BaseAttributes<AllocationAttributes>> GetFreeAllocationIDAsync(int nodeId, CancellationToken token = default)
