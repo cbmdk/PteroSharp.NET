@@ -39,10 +39,17 @@ namespace PteroSharp.Endpoints.V1_0.Client
             return response.Data;
         }
 
+        public async Task<ServerDetailResponse> GetServerDetailsAsync(int serverId, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/servers/{serverId}?include=allocations,user,subusers,pack,nest,egg,variables,location,node,databases,backups");
+            var response = await HandleRequestRawAsync<ServerDetailResponse>(request, token);
+            return response.Data;
+        }
+
         //public async Task<PterodactylList<Server>> GetServersAsync(Func<Server, bool> filter, CancellationToken token = default)
         //{
         //    var allServers = await GetServersAsync(token);
-            
+
         //    var filtered = allServers.Where(filter);
 
         //    return new PterodactylList<Server>(filtered);
@@ -92,8 +99,10 @@ namespace PteroSharp.Endpoints.V1_0.Client
                 var response = await HandleRequestRawAsync<BaseAttributes<CreateServerAttributes>>(request, token);
                 return response.IsSuccessStatusCode;
             }
-            catch
+            catch(Exception ex)
             {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"Error creating EULA file: {ex.Message}");
                 return false;
             }
             return false;
