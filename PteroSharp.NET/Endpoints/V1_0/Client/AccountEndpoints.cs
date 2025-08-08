@@ -1,12 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using PteroSharp.Models;
 using PteroSharp.Objects.V1_0.Client;
 using PteroSharp.Objects.V1_0.Client.Options;
 using PteroSharp.Utils;
 using RestSharp;
+using System;
+using System.Linq;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PteroSharp.Endpoints.V1_0.Client
 {
@@ -25,6 +26,51 @@ namespace PteroSharp.Endpoints.V1_0.Client
 
             return response;
         }
+
+        public async Task<bool> SetPassword(int userId, UpdateUserRequest updateRequest, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/users/{userId}", Method.Patch)
+                .AddJsonBody(updateRequest);
+            //var response = await _client.ExecuteAsync(request, token);
+            var response = await HandleRequestRawAsync(request, token);
+            return response.IsSuccessful;
+            
+        }
+
+        //public async Task<bool> UpdateEmailAsync(string email, string password, CancellationToken token = default)
+        //{
+        //    var payload = new
+        //    {
+        //        Email = email,
+        //        Password = password
+        //    };
+
+        //    var request = new RestRequest("/api/client/account/email", Method.Put)
+        //        .AddJsonBody(payload);
+
+        //    //var response = await _client.ExecuteAsync(request, token);
+        //    var response = await HandleRequest<Account>(request, token);
+        //    return true;
+        //    //return response.IsSuccessful;
+        //}
+
+        //public async Task<bool> UpdatePasswordAsync(string currentPassword, string newPassword, CancellationToken token = default)
+        //{
+        //    var payload = new
+        //    {
+        //        current_password = currentPassword,
+        //        password = newPassword,
+        //        password_confirmation = newPassword
+        //    };
+
+        //    var request = new RestRequest("/api/client/account/password", Method.Put)
+        //        .AddJsonBody(payload);
+
+        //    //var response = await _client.ExecuteAsync(request, token);
+        //    var response = await HandleRequest<Account>(request, token);
+
+        //    return true;
+        //}
 
         public async Task<Account> CreateAccountAsync(Account user, CancellationToken token = default)
         {

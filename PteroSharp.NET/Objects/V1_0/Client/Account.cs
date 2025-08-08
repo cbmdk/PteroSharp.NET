@@ -16,7 +16,7 @@ namespace PteroSharp.Objects.V1_0.Client
 
         public Account()
         {
-            _client = PterodactylClient.Instance.HttpClient;
+            //_client = PterodactylClient.Instance.HttpClient;
         }
 
 
@@ -39,46 +39,7 @@ namespace PteroSharp.Objects.V1_0.Client
 
         public string Language { get; set; }
 
-        public async Task<bool> SetPassword(int userId, UpdateUserRequest updateRequest, CancellationToken token = default)
-        {
-            var request = new RestRequest($"/api/application/users/{userId}", Method.Patch)
-                .AddJsonBody(updateRequest);
-            var response = await _client.ExecuteAsync(request, token);
-            return response.IsSuccessful;
-        }
-
-        public async Task<bool> UpdateEmailAsync(string email, string password, CancellationToken token = default)
-        {
-            var payload = new
-            {
-                Email = email,
-                Password = password
-            };
-
-            var request = new RestRequest("/api/client/account/email", Method.Put)
-                .AddJsonBody(payload);
-
-            var response = await _client.ExecuteAsync(request, token);
-
-            return response.IsSuccessful;
-        }
-
-        public async Task<bool> UpdatePasswordAsync(string currentPassword, string newPassword, CancellationToken token = default)
-        {
-            var payload = new
-            {
-                current_password = currentPassword,
-                password = newPassword,
-                password_confirmation = newPassword
-            };
-
-            var request = new RestRequest("/api/client/account/password", Method.Put)
-                .AddJsonBody(payload);
-
-            var response = await _client.ExecuteAsync(request, token);
-
-            return response.IsSuccessful;
-        }
+        
 
     }
 
