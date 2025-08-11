@@ -136,43 +136,43 @@ public class Limits
 public class Relationships
 {
     [JsonPropertyName("allocations")]
-    public ApiResponse<AllocationResponse> Allocations { get; set; }
+    public ApiResponse<SAllocationResponse> Allocations { get; set; }
 
     [JsonPropertyName("variables")]
     public ApiResponse<VariableResponse> Variables { get; set; }
 }
 
-//public class AllocationResponse
-//{
-//    [JsonPropertyName("object")]
-//    public string Object { get; set; }
+    public class SAllocationResponse
+    {
+        [JsonPropertyName("object")]
+        public string Object { get; set; }
 
-//    [JsonPropertyName("attributes")]
-//    public AllocationAttributes Attributes { get; set; }
-//}
+        [JsonPropertyName("attributes")]
+        public AllocationAttributes Attributes { get; set; }
+    }
 
-//public class AllocationAttributes
-//{
-//    [JsonPropertyName("id")]
-//    public int Id { get; set; }
+    //public class AllocationAttributes
+    //{
+    //    [JsonPropertyName("id")]
+    //    public int Id { get; set; }
 
-//    [JsonPropertyName("ip")]
-//    public string Ip { get; set; }
+    //    [JsonPropertyName("ip")]
+    //    public string Ip { get; set; }
 
-//    [JsonPropertyName("ip_alias")]
-//    public string Ip_Alias { get; set; }
+    //    [JsonPropertyName("ip_alias")]
+    //    public string Ip_Alias { get; set; }
 
-//    [JsonPropertyName("port")]
-//    public int Port { get; set; }
+    //    [JsonPropertyName("port")]
+    //    public int Port { get; set; }
 
-//    [JsonPropertyName("notes")]
-//    public string Notes { get; set; }
+    //    [JsonPropertyName("notes")]
+    //    public string Notes { get; set; }
 
-//    [JsonPropertyName("is_default")]
-//    public bool Is_Default { get; set; }
-//}
+    //    [JsonPropertyName("is_default")]
+    //    public bool Is_Default { get; set; }
+    //}
 
-public class VariableResponse
+    public class VariableResponse
 {
     [JsonPropertyName("object")]
     public string Object { get; set; }
