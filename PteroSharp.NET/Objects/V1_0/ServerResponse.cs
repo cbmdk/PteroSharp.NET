@@ -142,14 +142,14 @@ public class Relationships
     public ApiResponse<VariableResponse> Variables { get; set; }
 }
 
-public class AllocationResponse
-{
-    [JsonPropertyName("object")]
-    public string Object { get; set; }
+//public class AllocationResponse
+//{
+//    [JsonPropertyName("object")]
+//    public string Object { get; set; }
 
-    [JsonPropertyName("attributes")]
-    public AllocationAttributes Attributes { get; set; }
-}
+//    [JsonPropertyName("attributes")]
+//    public AllocationAttributes Attributes { get; set; }
+//}
 
 //public class AllocationAttributes
 //{

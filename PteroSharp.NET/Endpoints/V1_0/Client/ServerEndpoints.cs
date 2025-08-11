@@ -110,24 +110,75 @@ namespace PteroSharp.Endpoints.V1_0.Client
 
         public async Task<BaseAttributes<AllocationAttributes>> GetFreeAllocationIDAsync(int nodeId, CancellationToken token = default)
         {
-            try
+            int currentPage = 1;
+            int totalPages = 1; // Will be updated after first request
+
+            do
             {
-                var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
-                var response = await HandleArrayRequest<BaseAttributes<AllocationAttributes>>(request, token);
-                // Assuming you want to do something with the response
-                // For now, just returning it
-                var list = response.FirstOrDefault((x) => x.Attributes.Assigned == false);
+                RestRequest request = null;
+                if(currentPage == 1)
+                {
+                    request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
+                }
+                else
+                {
+                    request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
+                    request.AddParameter("page", currentPage);
+                }
 
+                
 
-                return list;
+                var response = await HandleRequestRawAsync<AllocationResponse>(request, token);
 
-            }
-            catch (Exception e)
-            {
+                ////Update total pages from the first response
+                if (currentPage == 1)
+                {
+                    totalPages = response.Data.Meta?.Pagination?.Total_Pages ?? 1;
+                    Console.WriteLine($"Searching through {totalPages} pages ({response.Data.Meta.Pagination.Total} total allocations) for free allocation on node {nodeId}");
+                }
 
-                throw;
-            }
+                // Look for free allocation in current page
+                var freeAllocation = response.Data.Data?.FirstOrDefault(x => x.Attributes.Assigned == false);
+
+                if (freeAllocation != null)
+                {
+                    Console.WriteLine($"Found free allocation: {freeAllocation.Attributes.Ip}:{freeAllocation.Attributes.Port} (ID: {freeAllocation.Attributes.Id}) on page {currentPage}");
+                    return new BaseAttributes<AllocationAttributes>
+                    {
+                        Object = freeAllocation.Object,
+                        Attributes = freeAllocation.Attributes
+                    };
+                }
+
+                Console.WriteLine($"No free allocations on page {currentPage}/{totalPages}");
+                currentPage++;
+
+            } while (currentPage <= totalPages);
+
+            // No free allocation found across all pages
+            throw new InvalidOperationException($"No free allocations available on node {nodeId} after checking all {totalPages} pages");
         }
+
+        //public async Task<BaseAttributes<AllocationAttributes>> GetFreeAllocationIDAsync(int nodeId, CancellationToken token = default)
+        //{
+        //    try
+        //    {
+        //        var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
+        //        var response = await HandleArrayRequest<BaseAttributes<AllocationAttributes>>(request, token);
+        //        // Assuming you want to do something with the response
+        //        // For now, just returning it
+        //        var list = response.FirstOrDefault((x) => x.Attributes.Assigned == false);
+
+
+        //        return list;
+
+        //    }
+        //    catch (Exception e)
+        //    {
+
+        //        throw e;
+        //    }
+        //}
 
         public async Task<CreateServerRequest> CreateServerAsync(CreateServerRequest server, CancellationToken token = default)
         {

@@ -16,7 +16,7 @@ namespace PteroSharp.NET.Models
         public List<AllocationItem> Data { get; set; }
 
         [JsonPropertyName("meta")]
-        public Meta Meta { get; set; }
+        public AlloMeta Meta { get; set; }
     }
 
     public class AllocationItem
@@ -49,30 +49,30 @@ namespace PteroSharp.NET.Models
         public bool Assigned { get; set; }
     }
 
-    //public class Meta
-    //{
-    //    [JsonPropertyName("pagination")]
-    //    public Pagination Pagination { get; set; }
-    //}
+    public class AlloMeta
+    {
+        [JsonPropertyName("pagination")]
+        public AlloPagination Pagination { get; set; }
+    }
 
-    //public class Pagination
-    //{
-    //    [JsonPropertyName("total")]
-    //    public int Total { get; set; }
+    public class AlloPagination
+    {
+        [JsonPropertyName("total")]
+        public int Total { get; set; }
 
-    //    [JsonPropertyName("count")]
-    //    public int Count { get; set; }
+        [JsonPropertyName("count")]
+        public int Count { get; set; }
 
-    //    [JsonPropertyName("per_page")]
-    //    public int PerPage { get; set; }
+        [JsonPropertyName("per_page")]
+        public int Per_Page { get; set; }
 
-    //    [JsonPropertyName("current_page")]
-    //    public int CurrentPage { get; set; }
+        [JsonPropertyName("current_page")]
+        public int Current_Page { get; set; }
 
-    //    [JsonPropertyName("total_pages")]
-    //    public int TotalPages { get; set; }
+        [JsonPropertyName("total_pages")]
+        public int Total_Pages { get; set; }
 
-    //    [JsonPropertyName("links")]
-    //    public Dictionary<string, object> Links { get; set; }
-    //}
+        [JsonPropertyName("links")]
+        public Dictionary<string, object> Links { get; set; }
+    }
 }
